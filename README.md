@@ -1,1 +1,1 @@
-# Feature-detection-for-industrial-buildings
+# Feature detection for industrial buildings
