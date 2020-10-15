@@ -1,0 +1,2 @@
+#Ignorar los archivos .pth, estos se bajan del drive de Jakarta
+*.pth
