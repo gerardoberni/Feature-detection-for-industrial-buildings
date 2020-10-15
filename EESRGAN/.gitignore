@@ -114,10 +114,5 @@ datasets/
 __MACOSX/
 
 #Agregados de Jacobo
-#Data/
-#weights/170000_D.pth
-#weights/170000_FRCNN.pth
-#weights/170000_G.pth
 requirements.txt
 DetectionPatches_256x256.tgz
-#saved/
