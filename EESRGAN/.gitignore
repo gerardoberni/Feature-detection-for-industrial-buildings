@@ -103,7 +103,7 @@ ENV/
 # input data, saved log, checkpoints
 data/
 input/
-saved/
+#saved/
 saved_ESRGAN/
 saved_EEGAN_separate/
 datasets/
