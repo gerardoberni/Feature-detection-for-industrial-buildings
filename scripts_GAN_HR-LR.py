@@ -30,12 +30,18 @@ def generate_mod_LR_bic():
     # directory structure on sunray server pc
     # Need to change later when refactoring, code cleaning and testing.
     #-------------------------------------------------------------------------------------------------------
-    sourcedir = "../Data/Raw/DetectionPatches_256x256/Potsdam_ISPRS/" #modificado
-    savedir = "../Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/" #modificado
+    sourcedir = "/app/Data/Raw/Prueba/" #modificado
+    savedir = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/" #modificado
 
     saveHRpath = os.path.join(savedir, 'HR', 'x' + str(mod_scale))
     saveLRpath = os.path.join(savedir, 'LR', 'x' + str(up_scale))
     saveBicpath = os.path.join(savedir, 'Bic', 'x' + str(up_scale))
+
+    #--------------------------------------------------------------------------------------------------------
+    Dir_HR = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/" #modificado
+    Dir_Bic = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/Bic/x4/" #modificado
+    Dir_LR = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/" #modificado
+    #---------------------------------------------------------------------------------------------------------
 
     if not os.path.isdir(sourcedir):
         print('Error: No source data found')
@@ -95,15 +101,26 @@ def generate_mod_LR_bic():
 
 def copy_folder_name_for_valid_image():
     #--------------------------------------------------------------------------------------------------------------
-    Dir_HR = "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/" #modificado
-    Dir_Bic = "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/Bic/x4/" #modificado
-    Dir_LR = "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/" #modificado
 
-    for file in glob.glob("./Data/Processed/Validation/val_images/*"):
+    Dir_HR = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/" #modificado
+    Dir_Bic = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/Bic/x4/" #modificado
+    Dir_LR = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/" #modificado
+    """
+    if not os.path.isdir(os.path.join(Dir_HR, 'valid_img')):
+        os.mkdir(os.path.join(Dir_HR, 'valid_img'))
+    
+    if not os.path.isdir(os.path.join(Dir_Bic, 'valid_img')):
+        os.mkdir(os.path.join(Dir_Bic, 'valid_img'))
+    
+    if not os.path.isdir(os.path.join(Dir_LR, 'valid_img')):
+        os.mkdir(os.path.join(Dir_LR, 'valid_img'))
+    """
+
+    for file in glob.glob("/app/saved/prueba/*"):
         img_file = os.path.basename(file[:-4]+'.jpg') #modificado, es para eliminar los últimos 4 carácteres y sustituirlos por .jpg
         txt_file = os.path.basename(file[:-4]+'.txt') #modificado, es para eliminar los últimos 4 carácteres y sustituirlos por .txt
 
-        print(file)
+        print("Image: ",img_file, ". Text: ", txt_file)
         sourceH = os.path.join(Dir_HR,img_file)
         destinationH = os.path.join(Dir_HR, 'valid_img', img_file)
         shutil.move(sourceH, destinationH)
@@ -127,7 +144,7 @@ def copy_folder_name_for_valid_image():
         sourceLtxt = os.path.join(Dir_LR,txt_file)
         destinationLtxt = os.path.join(Dir_LR, 'valid_img', txt_file)
         shutil.move(sourceLtxt, destinationLtxt)
-"""
+
 def merge_edge():
     dir = "/home/crowbar/EESRGAN/Filter_Enhance_Detect/saved/val_images/*/*"
     img_SR = sorted(glob.glob(dir+'_216000_SR.png'))
@@ -397,7 +414,7 @@ def calculate_lap_edge():
 
         #img_final_SR_enhanced = cv2.cvtColor(img_final_SR_enhanced, cv2.COLOR_BGR2RGB)
         cv2.imwrite(img_path, img_gt)
-"""
+
 
 if __name__ == "__main__":
     generate_mod_LR_bic()

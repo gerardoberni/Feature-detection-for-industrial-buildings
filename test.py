@@ -13,16 +13,16 @@ python test.py -c config_GAN.json
 
 def main(config):
     #---------------------------------------------------------------------------------------------------------------------------------------
-    data_loader = module_data.COWCGANFrcnnDataLoader('./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/valid_img/', #modificado
-    './Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img/', 1, training=False) #modificado
+    data_loader = module_data.COWCGANFrcnnDataLoader('/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/valid_img/', #modificado
+    '/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img/', 1, training=False) #modificado
     tester = COWCGANFrcnnTrainer(config=config, data_loader=data_loader)
     tester.test()
-    """
+    
     '''
     tester = COWCFRCNNTrainer(config=config)
     tester.test()
     '''
-    
+    '''
     logger = config.get_logger('test')
 
     # setup data_loader instances
@@ -80,8 +80,7 @@ def main(config):
         met.__name__: total_metrics[i].item() / n_samples for i, met in enumerate(metric_fns)
     })
     logger.info(log)
-    """
-
+	'''
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser(description='PyTorch Template')

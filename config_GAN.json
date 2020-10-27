@@ -24,8 +24,8 @@
     "data_loader": {
         "type": "COWCGANFrcnnDataLoader",
         "args":{
-            "data_dir_GT": "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/valid_img",
-            "data_dir_LQ": "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img",
+            "data_dir_GT": "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/",
+            "data_dir_LQ": "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/",
             "batch_size": 2,
             "shuffle": true,
             "validation_split": 0.0,
@@ -76,7 +76,7 @@
         "manual_seed": 10,
         "val_freq": 1000,
 
-        "save_dir": "saved/",
+        "save_dir": "/app/saved/",
         "save_period": 1,
         "verbosity": 2,
 
@@ -86,15 +86,29 @@
         "tensorboard": true
     },
     "path": {
-        "log": "saved/logs",
-        "models": "saved/my_models",
-        "pretrain_model_G": "./weights/170000_G.pth",
-        "pretrain_model_D": "./weights/170000_D.pth",
-        "pretrain_model_FRCNN": "./weights/170000_FRCNN.pth",
-        "training_state": "saved/training_state",
+        "models": "/app/saved/my_models",
+        "FRCNN_model": "/app/saved/FRCNN_model_LR_LR_cowc/",
+        "pretrain_model_G": "/app/weights/170000_G.pth",
+        "pretrain_model_D": "/app/weights/170000_D.pth",
+        "pretrain_model_FRCNN": "/app/weights/170000_FRCNN.pth",
+        "training_state": "/app/saved/training_state",
         "strict_load": true,
-        "data_dir_Valid":"./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img",
-        "Test_Result_SR": "./Data/Results/"
+        "resume_state": "~",
+        "val_images": "/app/saved/val_images/",
+        "output_images": "/app/saved/output_images/",
+        "log": "/app/saved/logs/",
+        "data_dir_Valid":"/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img/",
+        "data_dir_F_SR": "/app/saved/Final_SR_images_test/",
+        "data_dir_SR": "/app/saved/SR_images_test/",
+        "data_dir_SR_combined": "/app/saved/combined_SR_images_216000/",
+        "data_dir_E_SR_1": "/app/saved/enhanced_SR_images_1/",
+        "data_dir_E_SR_2": "/app/saved/enhanced_SR_images_2/",
+        "data_dir_E_SR_3": "/app/saved/enhanced_SR_images_3/",
+        "data_dir_Bic": "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/valid_img/",
+        "data_dir_LR_train": "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/",
+        "data_dir_Bic_valid": "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/Bic/x4/valid_img/",
+        "Test_Result_LR_LR_COWC": "/app/saved/Test_Result_LR_LR_COWC/",
+        "Test_Result_SR": "/app/saved/Test_Result_SR/"
     },
     "logger": {
       "print_freq": 100,
