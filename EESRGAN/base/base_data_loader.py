@@ -14,6 +14,7 @@ class BaseDataLoader(DataLoader):
 
         self.batch_idx = 0
         self.n_samples = len(dataset)
+        print("base_data_loader.py, BaseDataLoader n_samples: ",self.n_samples) #QUITAR
 
         self.sampler, self.valid_sampler = self._split_sampler(self.validation_split)
 

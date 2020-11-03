@@ -13,6 +13,8 @@ import glob
 import shutil
 import kornia
 import torch
+import argparse
+from parse_config import ConfigParser
 
 try:
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -22,7 +24,7 @@ except ImportError:
     pass
 
 
-def generate_mod_LR_bic():
+def generate_mod_LR_bic(config):
     # set parameters
     up_scale = 4
     mod_scale = 4
@@ -30,8 +32,11 @@ def generate_mod_LR_bic():
     # directory structure on sunray server pc
     # Need to change later when refactoring, code cleaning and testing.
     #-------------------------------------------------------------------------------------------------------
-    sourcedir = "../Data/Raw/DetectionPatches_256x256/Potsdam_ISPRS/" #modificado
-    savedir = "../Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/" #modificado
+    #sourcedir = "/app/Data/Raw/DetectionPatches_256x256/Potsdam_ISPRS/" #modificado original
+    #savedir = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/" #modificado original
+
+    sourcedir = config['path']['data_raw'] #modificado nuevo
+    savedir = config['path']['data_processed'] #modificado nuevo
 
     saveHRpath = os.path.join(savedir, 'HR', 'x' + str(mod_scale))
     saveLRpath = os.path.join(savedir, 'LR', 'x' + str(up_scale))
@@ -93,17 +98,32 @@ def generate_mod_LR_bic():
         cv2.imwrite(os.path.join(saveLRpath, filename), image_LR)
         cv2.imwrite(os.path.join(saveBicpath, filename), image_Bic)
 
-def copy_folder_name_for_valid_image():
+def copy_folder_name_for_valid_image(config):
     #--------------------------------------------------------------------------------------------------------------
-    Dir_HR = "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/" #modificado
-    Dir_Bic = "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/Bic/x4/" #modificado
-    Dir_LR = "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/" #modificado
 
-    for file in glob.glob("./Data/Processed/Validation/val_images/*"):
+    #Dir_HR = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/" #modificado original
+    #Dir_Bic = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/Bic/x4/" #modificado original
+    #Dir_LR = "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/" #modificado original
+
+    Dir_HR  =  config['data_loader']['args']['data_dir_GT'] #Modificado nuevo
+    Dir_LR  =  config['data_loader']['args']['data_dir_LQ'] #Modificado nuevo
+    Dir_Bic =  config['path']['data_dir_Bic_x4'] #Modificado nuevo
+    
+    if not os.path.isdir(os.path.join(Dir_HR, 'valid_img')):
+        os.mkdir(os.path.join(Dir_HR, 'valid_img'))
+    
+    if not os.path.isdir(os.path.join(Dir_Bic, 'valid_img')):
+        os.mkdir(os.path.join(Dir_Bic, 'valid_img'))
+    
+    if not os.path.isdir(os.path.join(Dir_LR, 'valid_img')):
+        os.mkdir(os.path.join(Dir_LR, 'valid_img'))
+    
+
+    for file in glob.glob(config['val_images'] + '*'):
         img_file = os.path.basename(file[:-4]+'.jpg') #modificado, es para eliminar los últimos 4 carácteres y sustituirlos por .jpg
         txt_file = os.path.basename(file[:-4]+'.txt') #modificado, es para eliminar los últimos 4 carácteres y sustituirlos por .txt
 
-        print(file)
+        print("Image: ",img_file, ". Text: ", txt_file)
         sourceH = os.path.join(Dir_HR,img_file)
         destinationH = os.path.join(Dir_HR, 'valid_img', img_file)
         shutil.move(sourceH, destinationH)
@@ -127,7 +147,7 @@ def copy_folder_name_for_valid_image():
         sourceLtxt = os.path.join(Dir_LR,txt_file)
         destinationLtxt = os.path.join(Dir_LR, 'valid_img', txt_file)
         shutil.move(sourceLtxt, destinationLtxt)
-"""
+
 def merge_edge():
     dir = "/home/crowbar/EESRGAN/Filter_Enhance_Detect/saved/val_images/*/*"
     img_SR = sorted(glob.glob(dir+'_216000_SR.png'))
@@ -397,11 +417,16 @@ def calculate_lap_edge():
 
         #img_final_SR_enhanced = cv2.cvtColor(img_final_SR_enhanced, cv2.COLOR_BGR2RGB)
         cv2.imwrite(img_path, img_gt)
-"""
+
 
 if __name__ == "__main__":
-    generate_mod_LR_bic()
-    copy_folder_name_for_valid_image()
+    args = argparse.ArgumentParser()
+    args.add_argument('-c', '--config', default=None, type=str,
+                      help="config file path (default: None)")
+    config = ConfigParser.from_args(args)
+    generate_mod_LR_bic(config)
+    copy_folder_name_for_valid_image(config)
+
     #merge_edge()
     #calculate_psnr_ssim_ESRGAN() #not working expected, use the other methods.
     #separate_generated_image_for_test()

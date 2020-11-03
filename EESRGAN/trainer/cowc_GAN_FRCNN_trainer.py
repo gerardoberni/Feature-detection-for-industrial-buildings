@@ -55,8 +55,9 @@ class COWCGANFrcnnTrainer:
         logger.info('Total epochs needed: {:d} for iters {:,d}'.format(
                     self.total_epochs, self.total_iters))
         # tensorboard logger
+        torch.autograd.set_detect_anomaly(True) # modificado -----------------------------------------------------------------
         if self.config['use_tb_logger'] and 'debug' not in self.config['name']:
-            version = float(torch.__version__[0:3])
+            version = float(torch.__version__[0:3]) #--------------------------------------------------------modificado
             if version >= 1.1:  # PyTorch 1.1
                 from torch.utils.tensorboard import SummaryWriter
             else:

@@ -16,7 +16,7 @@ class TestCOWCDataset():
         config = read_json('config.json')
         config = ConfigParser(config)
         data_dir = config['data_loader']['args']['data_dir']
-        shutil.rmtree("./saved")#removing /saved directory, everytime created by ConfigParser
+        #shutil.rmtree("./saved")#removing /saved directory, everytime created by ConfigParser
         a = COWCDataset(data_dir)
         for img, annot in zip(a.imgs, a.annotation):
             if os.path.splitext(img)[0] != os.path.splitext(annot)[0]:
@@ -29,7 +29,7 @@ class TestCOWCDataset():
         config = read_json('config.json')
         config = ConfigParser(config)
         data_dir = config['data_loader']['args']['data_dir']
-        shutil.rmtree("./saved")#removing /saved directory, everytime created by ConfigParser
+        #shutil.rmtree("./saved")#removing /saved directory, everytime created by ConfigParser
         a = COWCDataset(data_dir)
         zero_annotation = 0
         for i in range(len(a.annotation)):

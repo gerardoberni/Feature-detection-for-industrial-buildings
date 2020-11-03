@@ -5,12 +5,10 @@
     "distortion": "sr",
     "scale": 4,
     "use_tb_logger": true,
-
     "network_G": {
         "which_model_G": "RRDBNet",
         "in_nc": 3,
         "out_nc": 3,
-
         "nf": 64,
         "nb": 23,
         "args": {}
@@ -23,27 +21,26 @@
     },
     "data_loader": {
         "type": "COWCGANFrcnnDataLoader",
-        "args":{
-            "data_dir_GT": "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/valid_img",
-            "data_dir_LQ": "./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img",
-            "batch_size": 2,
+        "args": {
+            "data_dir_GT": "/home/crowbar/Desktop/EESRGAN/EESRGAN/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/",
+            "data_dir_LQ": "/home/crowbar/Desktop/EESRGAN/EESRGAN/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/",
+            "batch_size": 10,
             "shuffle": true,
             "validation_split": 0.0,
-            "num_workers": 2
+            "num_workers": 1
         }
     },
     "optimizer": {
         "type": "SGD",
-        "args":{
-        "lr_G": 0.0001,
-        "weight_decay_G": 0,
-        "beta1_G": 0.9,
-        "beta2_G": 0.99,
-
-        "lr_D": 0.0001,
-        "weight_decay_D": 0,
-        "beta1_D": 0.9,
-        "beta2_D": 0.99
+        "args": {
+            "lr_G": 0.0001,
+            "weight_decay_G": 0,
+            "beta1_G": 0.9,
+            "beta2_G": 0.99,
+            "lr_D": 0.0001,
+            "weight_decay_D": 0,
+            "beta1_D": 0.9,
+            "beta2_D": 0.99
         }
     },
     "loss": "cross_entropy",
@@ -53,12 +50,30 @@
     "lr_scheduler": {
         "type": "MultiStepLR",
         "args": {
-            "lr_steps": [50000, 100000, 200000, 300000],
+            "lr_steps": [
+                50000,
+                100000,
+                200000,
+                300000
+            ],
             "lr_gamma": 0.5,
-            "T_period": [250000, 250000, 250000, 250000],
-            "restarts": [250000, 500000, 750000],
-            "restart_weights": [1, 1, 1],
-            "eta_min": 0.0000001
+            "T_period": [
+                250000,
+                250000,
+                250000,
+                250000
+            ],
+            "restarts": [
+                250000,
+                500000,
+                750000
+            ],
+            "restart_weights": [
+                1,
+                1,
+                1
+            ],
+            "eta_min": 1e-07
         }
     },
     "train": {
@@ -68,36 +83,49 @@
         "pixel_weight": 0.01,
         "feature_criterion": "l1",
         "feature_weight": 1,
-
         "gan_type": "ragan",
         "gan_weight": 0.001,
         "D_update_ratio": 1,
         "D_init_iters": 0,
         "manual_seed": 10,
         "val_freq": 1000,
-
-        "save_dir": "saved/",
+        "save_dir": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved",
         "save_period": 1,
         "verbosity": 2,
-
         "monitor": "min val_loss",
         "early_stop": 10,
-
         "tensorboard": true
     },
     "path": {
-        "log": "saved/logs",
-        "models": "saved/my_models",
-        "pretrain_model_G": "./weights/170000_G.pth",
-        "pretrain_model_D": "./weights/170000_D.pth",
-        "pretrain_model_FRCNN": "./weights/170000_FRCNN.pth",
-        "training_state": "saved/training_state",
+        "models": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/my_models/",
+        "FRCNN_model": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/FRCNN_model_LR_LR_cowc/",
+        "pretrain_model_G": "/home/crowbar/Desktop/EESRGAN/EESRGAN/weights/170000_G.pth",
+        "pretrain_model_D": "/home/crowbar/Desktop/EESRGAN/EESRGAN/weights/170000_D.pth",
+        "pretrain_model_FRCNN": "/home/crowbar/Desktop/EESRGAN/EESRGAN/weights/170000_FRCNN.pth",
+        "training_state": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/training_state",
         "strict_load": true,
-        "data_dir_Valid":"./Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img",
-        "Test_Result_SR": "./Data/Results/"
+        "resume_state": "~",
+        "val_images": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/val_images/",
+        "output_images": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/output_images/",
+        "log": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/logs/",
+        "data_dir_Valid": "/home/crowbar/Desktop/EESRGAN/EESRGAN/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img/",
+        "data_dir_F_SR": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/Final_SR_images_test/",
+        "data_dir_SR": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/SR_images_test/",
+        "data_dir_SR_combined": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/combined_SR_images_216000/",
+        "data_dir_E_SR_1": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/enhanced_SR_images_1/",
+        "data_dir_E_SR_2": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/enhanced_SR_images_2/",
+        "data_dir_E_SR_3": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/enhanced_SR_images_3/",
+        "data_dir_Bic": "/home/crowbar/Desktop/EESRGAN/EESRGAN/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/valid_img/",
+        "data_dir_Bic_x4": "/home/crowbar/Desktop/EESRGAN/EESRGAN/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/Bic/x4/",
+        "data_raw": "/home/crowbar/Desktop/EESRGAN/EESRGAN/Data/Raw/DetectionPatches_256x256/Potsdam_ISPRS/",
+        "data_processed": "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/",
+        "data_dir_LR_train": "/home/crowbar/Desktop/EESRGAN/EESRGAN/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/",
+        "data_dir_Bic_valid": "/home/crowbar/Desktop/EESRGAN/EESRGAN/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/Bic/x4/valid_img/",
+        "Test_Result_LR_LR_COWC": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/Test_Result_LR_LR_COWC/",
+        "Test_Result_SR": "/home/crowbar/Desktop/EESRGAN/EESRGAN/saved/Test_Result_SR/"
     },
     "logger": {
-      "print_freq": 100,
-      "save_checkpoint_freq": 1000
+        "print_freq": 100,
+        "save_checkpoint_freq": 1000
     }
 }

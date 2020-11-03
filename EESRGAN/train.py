@@ -33,29 +33,34 @@ def main(config):
     setup_logger('val', config['path']['log'], 'val_' + config['name'], level=logging.INFO,
                       screen=True, tofile=True)
     logger = logging.getLogger('base')
-    #logger.info(dict2str(config))
+    #logger.info(dict2str(config)) #Original está comentado
 
 
     # setup data_loader instances
     data_loader = config.init_obj('data_loader', module_data)
     #change later this valid_data_loader using init_obj
     #---------------------------------------------------------------------------------------------------------------------------------------
-    valid_data_loader = module_data.COWCGANFrcnnDataLoader('./Data/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/valid_img/', #modificado
-    './Data/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img/', 1, training = False) #modificado
-
+    #valid_data_loader = module_data.COWCGANFrcnnDataLoader("/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/HR/x4/valid_img/", #modificado
+    #"/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/valid_img/", 1, training = False) #modificado
+    
+    HR_x4_valid_img = config["path"]["data_dir_Bic"]
+    LR_x4_valid_img = config["path"]["data_dir_Valid"]
+    valid_data_loader = module_data.COWCGANFrcnnDataLoader(HR_x4_valid_img, LR_x4_valid_img, 1, training = False) # Nuevo modificado
+    
+    
     # build model architecture, then print to console
-    #model = config.init_obj('arch', module_arch)
-    #logger.info(model)
+    #model = config.init_obj('arch', module_arch) #Original está comentado
+    #logger.info(model) #Original está comentado
 
     # get function handles of loss and metrics
-    #criterion = getattr(module_loss, config['loss'])
-    #metrics = [getattr(module_metric, met) for met in config['metrics']]
+    #criterion = getattr(module_loss, config['loss']) #Original está comentado
+    #metrics = [getattr(module_metric, met) for met in config['metrics']] #Original está comentado
 
     # build optimizer, learning rate scheduler. delete every lines containing lr_scheduler for disabling scheduler
-    #trainable_params = filter(lambda p: p.requires_grad, model.parameters())
-    #optimizer = config.init_obj('optimizer', torch.optim, trainable_params)
+    #trainable_params = filter(lambda p: p.requires_grad, model.parameters()) #Original está comentado
+    #optimizer = config.init_obj('optimizer', torch.optim, trainable_params) #Original está comentado
 
-    #lr_scheduler = config.init_obj('lr_scheduler', torch.optim.lr_scheduler, optimizer)
+    #lr_scheduler = config.init_obj('lr_scheduler', torch.optim.lr_scheduler, optimizer) #Original está comentado
     '''
     trainer = COWCGANTrainer(model, criterion, metrics, optimizer,
                       config=config,

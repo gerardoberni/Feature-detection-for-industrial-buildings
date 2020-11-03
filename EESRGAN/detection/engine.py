@@ -72,9 +72,12 @@ def _get_iou_types(model):
 Draw boxes on the test images
 '''
 def draw_detection_boxes(new_class_conf_box, config, file_name, image):
-    source_image_path = os.path.join(config['path']['output_images'], file_name, file_name+'_112000_final_SR.png')
-    dest_image_path = os.path.join(config['path']['Test_Result_SR'], file_name+'.png')
+    #source_image_path = os.path.join(config['path']['output_images'], file_name, file_name+'_112000_final_SR.jpg') #original
+    source_image_path = os.path.join(config['path']['output_images'], file_name + '.jpg') #modificado
+    dest_image_path = os.path.join(config['path']['Test_Result_SR'], file_name+'.jpg')
     image = cv2.imread(source_image_path, 1)
+    print("Source image: ",source_image_path) #quitar esto
+    print("Image: ",image) #quitar esto
     #print(new_class_conf_box)
     #print(len(new_class_conf_box))
     for i in range(len(new_class_conf_box)):
@@ -132,7 +135,7 @@ def evaluate(model_G, model_FRCNN, data_loader, device):
     n_threads = torch.get_num_threads()
     # FIXME remove this and make paste_masks_in_image run on the GPU
     torch.set_num_threads(1)
-    cpu_device = torch.device("cpu")
+    cpu_device = torch.device("cpu")#modfificado
     #model.eval()
     metric_logger = MetricLogger(delimiter="  ")
     header = 'Test:'
@@ -177,7 +180,7 @@ def evaluate_base(model, data_loader, device):
     n_threads = torch.get_num_threads()
     # FIXME remove this and make paste_masks_in_image run on the GPU
     torch.set_num_threads(1)
-    cpu_device = torch.device("cpu")
+    cpu_device = torch.device("cpu") #modifiadp
     model.eval()
     metric_logger = MetricLogger(delimiter="  ")
     header = 'Test:'
