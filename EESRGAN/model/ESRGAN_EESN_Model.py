@@ -166,7 +166,7 @@ class ESRGAN_EESN_Model(BaseModel):
 
         #descriminator
         for p in self.netD.parameters():
-            p.requires_grad = True
+            p.requires_grad = True #Original en True
 
         self.optimizer_D.zero_grad()
         l_d_total = 0

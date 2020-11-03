@@ -65,6 +65,7 @@ class COWCDataLoader(BaseDataLoader):
 
 
         self.data_dir = data_dir
+        print("data_loaders.py, COWCDataLoader data_dir: ",self.data_dir) #QUITAR
         self.dataset = COWCDataset(self.data_dir, transform=data_transforms)
         super().__init__(self.dataset, batch_size, shuffle, validation_split, num_workers, collate_fn=collate_fn)
 
@@ -108,9 +109,11 @@ class COWCGANDataLoader(BaseDataLoader):
 
         self.data_dir_gt = data_dir_GT
         self.data_dir_lq = data_dir_LQ
-
+        print("data_loaders.py COWCGANDataLoader data_dir_gt: ",self.data_dir_gt) #QUITAR
+        print("data_loaders.py COWCGANDataLoader data_dir_lq: ",self.data_dir_lq) #QUITAR
         if training == True:
             self.dataset = COWCGANDataset(self.data_dir_gt, self.data_dir_lq, transform=data_transforms_train)
+            print("data_loaders.py COWCGANDataLoader Training dataset: ",self.dataset) #QUITAR
         else:
             self.dataset = COWCGANDataset(self.data_dir_gt, self.data_dir_lq, transform=data_transforms_test)
         self.length = len(self.dataset)
@@ -156,9 +159,11 @@ class COWCGANFrcnnDataLoader(BaseDataLoader):
 
         self.data_dir_gt = data_dir_GT
         self.data_dir_lq = data_dir_LQ
-
+        print("data_loaders.py, COWCGANFrcnnDataLoader data_dir_gt: ",self.data_dir_gt) #QUITAR
+        print("data_loaders.py, COWCGANFrcnnDataLoader data_dir_lq: ",self.data_dir_lq) #QUITAR
         if training == True:
             self.dataset = COWCGANFrcnnDataset(self.data_dir_gt, self.data_dir_lq, transform=data_transforms_train)
+            print("data_loaders.py, COWCGANFrcnnDataLoader Training dataset: ",len(self.dataset)) #QUITAR
         else:
             self.dataset = COWCGANFrcnnDataset(self.data_dir_gt, self.data_dir_lq, transform=data_transforms_test)
         self.length = len(self.dataset)

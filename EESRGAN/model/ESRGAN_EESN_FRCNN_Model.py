@@ -160,7 +160,7 @@ class ESRGAN_EESN_FRCNN_Model(BaseModel):
     def optimize_parameters(self, step):
         #Generator
         for p in self.netG.parameters():
-            p.requires_grad = True
+            p.requires_grad = True #Original en true
         for p in self.netD.parameters():
             p.requires_grad = False
         self.optimizer_G.zero_grad()
@@ -193,12 +193,12 @@ class ESRGAN_EESN_FRCNN_Model(BaseModel):
                                         + self.cri_charbonnier(self.x_learned_lap_fake, self.lap_HR))#change the weight to empirically
             l_g_total += l_e_charbonnier
 
-            l_g_total.backward(retain_graph=True)
+            l_g_total.backward(retain_graph=True) #Original en True
             self.optimizer_G.step()
 
         #descriminator
         for p in self.netD.parameters():
-            p.requires_grad = True
+            p.requires_grad = True #Original en True
 
         self.optimizer_D.zero_grad()
         l_d_total = 0
@@ -240,7 +240,7 @@ class ESRGAN_EESN_FRCNN_Model(BaseModel):
 
         loss_value = losses_reduced.item()
 
-        losses.backward()
+        losses.backward() #Modificado--------------------------------------------------------
         self.optimizer_FRCNN.step()
 
         # set log

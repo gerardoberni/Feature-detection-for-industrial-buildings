@@ -29,16 +29,16 @@ class COWCGANFrcnnDataset(Dataset):
   def __getitem__(self, idx):
     #get the paths
     #---------------------------------------------------------------------------------------------------------------
-    #img_path_gt = os.path.join(self.data_dir_gt, self.imgs_gt[idx]) #original
-    #img_path_lq = os.path.join(self.data_dir_lq, self.imgs_lq[idx]) #original
-    #annotation_path = os.path.join(self.data_dir_lq, self.annotation[idx]) #original
-    img_path_gt = self.imgs_gt[idx] #modificado
-    img_path_lq = self.imgs_lq[idx] #modificado
-    annotation_path = self.annotation[idx] #modificado
+    img_path_gt = os.path.join(self.data_dir_gt, self.imgs_gt[idx]) #original
+    img_path_lq = os.path.join(self.data_dir_lq, self.imgs_lq[idx]) #original
+    annotation_path = os.path.join(self.data_dir_lq, self.annotation[idx]) #original
+    #img_path_gt = self.imgs_gt[idx] #modificado
+    #img_path_lq = self.imgs_lq[idx] #modificado
+    #annotation_path = self.annotation[idx] #modificado
     #---------------------------------------------------------------------------------------------------------------
     
     img_gt = cv2.imread(img_path_gt,1) #read color image height*width*channel=3
-    print(img_gt)
+    #print(img_gt)
     img_lq = cv2.imread(img_path_lq,1) #read color image height*width*channel=3
     img_gt = cv2.cvtColor(img_gt, cv2.COLOR_BGR2RGB)
     img_lq = cv2.cvtColor(img_lq, cv2.COLOR_BGR2RGB)

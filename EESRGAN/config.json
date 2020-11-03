@@ -9,11 +9,11 @@
     "data_loader": {
         "type": "COWCDataLoader",
         "args":{
-            "data_dir": "/home/jakaria/Super_Resolution/Datasets/COWC/DetectionPatches_256x256/Potsdam_ISPRS/Train-Mixed-class-2/",
+            "data_dir": "/app/Data/Processed/DetectionPatches_256x256/Potsdam_ISPRS/LR/x4/",
             "batch_size": 1,
             "shuffle": true,
             "validation_split": 0.1,
-            "num_workers": 2
+            "num_workers": 4
         }
     },
     "optimizer": {
@@ -38,7 +38,7 @@
     "trainer": {
         "epochs": 100,
 
-        "save_dir": "saved/",
+        "save_dir": "/app/saved/",
         "save_period": 1,
         "verbosity": 2,
 
