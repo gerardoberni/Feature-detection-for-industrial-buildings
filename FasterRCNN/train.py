@@ -13,10 +13,6 @@ def main(epochs, data_path, params, device, fromCheckpoint):
     np.random.seed(0)
     training_set = TerniumDataset(training_path, get_transform(train=True))
     
-    # split the dataset in train and test set
-    #indices = torch.randperm(len(training_set)).tolist()
-    #training_set = torch.utils.data.Subset(training_set, indices[0:100])
-    
     training_loader = torch.utils.data.DataLoader(training_set, **params)
     
     # Construír modelo y optimizador
@@ -28,7 +24,7 @@ def main(epochs, data_path, params, device, fromCheckpoint):
 
     # OPCIONAL: Resumir entrenamiento a partir de checkpoint
     if fromCheckpoint:
-        model, optimizer, last_epoch = loadCheckpoint(model,optimizer,"checkpoint_best.tar")
+        model, optimizer, last_epoch = loadCheckpoint(model,optimizer,"best_checkpoint.tar")
     
     # Entrenar durante x epochs
     for epoch in range(epochs):

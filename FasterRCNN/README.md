@@ -16,6 +16,7 @@ Una vez que hayas instalado los requisitos procede a crear las siguientes carpet
 `/Weights/`
 `/Checkpoints/`
 `/Outputs/`
+También necesitas tener el archivo `classes.txt` en la carpeta base del proyecto.
 
 ## Preparar dataset
 Ya que tengas tu entorno listo procede a correr el siguiente script en la terminal en caso de que no tengas tu dataset limpio y en 2 carpetas Anotations e Images.
@@ -40,7 +41,7 @@ Número de procesos para cargar datos, DEFAULT=6
 CPU = -1, GPU = 1...n_GPU, DEFAULT=cuda:0
 
 `-chk CHECKPOINT, --checkpoint CHECKPOINT`
-Resumir entrenamiento a partir de un checkpoint, DEFAULT=False
+Resumir entrenamiento a partir de un checkpoint, , DEFAULT=False
 
 `-data DATA, --data DATA`
 Ruta a la carpeta base con las imágenes de train y test, DEFAULT=cwd

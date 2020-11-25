@@ -63,9 +63,9 @@ def test(model, test_loader, device=torch.device('cuda')):
     return predictions, images
 
 # Cargar el dataset e inicializar los parámetros a utilizar en la inferencia.
-def main(params,data_path,device,thresh):
+def main(params,data_path,device,no_images,thresh):
     testing_path = os.path.join(data_path,'Testing')
-    PATH = 'last_weight.pth'
+    PATH = 'best_weight.pth'
     txt = open("classes.txt","r")
     txtfile = txt.read()
     CLASSES = txtfile.split('\n')
@@ -78,7 +78,7 @@ def main(params,data_path,device,thresh):
     testing_set = TerniumDataset(testing_path, get_transform(train=False))
     #indices = torch.randperm(len(testing_set)).tolist()
     #testing_set = torch.utils.data.Subset(testing_set, indices[:10])
-    indices = list(range(5,10))
+    indices = list(range(no_images))
     testing_set = torch.utils.data.Subset(testing_set, indices)
     test_loader = torch.utils.data.DataLoader(testing_set, **params)
     predictions, images = test(model, test_loader, device)
@@ -121,6 +121,7 @@ if __name__ == "__main__":
     parser.add_argument("-w","--workers", type=int, help='Número de procesos para cargar datos, DEFAULT=6')
     parser.add_argument("-d","--device", type=int, help='CPU = -1, GPU = 1...n_GPU, DEFAULT=cuda:0')
     parser.add_argument("-data","--data", type=str, help='Ruta a la carpeta base con las imágenes de train y test, DEFAULT=cwd')
+    parser.add_argument("-im","--images", type=int, help='Número de imágenes a probar, DEFAULT=10')
     args = parser.parse_args()
 
     params = {
@@ -133,7 +134,7 @@ if __name__ == "__main__":
     data_path = os.getcwd()
     device = torch.device('cuda')
     threshold = 0.3
-    
+    no_images = 10
     # Valores de CLI opcionales
     _, device = mapArgs(params, args, 0,device, False)
 
@@ -143,6 +144,9 @@ if __name__ == "__main__":
     if args.data is not None:
         data_path = args.data
 
+    if args.images is not None:
+        no_images = args.images
+
     torch.cuda.empty_cache()
-    main(params,data_path,device,threshold)
+    main(params,data_path,device,no_images,threshold)
     torch.cuda.empty_cache()
