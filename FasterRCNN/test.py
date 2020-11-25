@@ -47,14 +47,12 @@ def test(model, test_loader, device=torch.device('cuda')):
             torch.cuda.empty_cache()
             outputs_CPU = []
 
-            print("Outputs_GPU: ",outputs_GPU)
             for output_GPU in outputs_GPU:
                 output_CPU = {}
                 output_CPU['boxes']  = output_GPU['boxes'].cpu().numpy()
                 output_CPU['labels'] = output_GPU['labels'].cpu().numpy()
                 output_CPU['scores'] = output_GPU['scores'].cpu().numpy()
                 outputs_CPU.append(output_CPU)
-            print("Outputs_CPU: ",outputs_CPU)
             predictions.append(outputs_CPU)
             del outputs_GPU
             del outputs_CPU
