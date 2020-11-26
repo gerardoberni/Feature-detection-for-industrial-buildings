@@ -1,7 +1,7 @@
 # Guía para instalar y correr FasterRCNN.
-Este modelo de FasterRCNN utiliza como backbone resnet50, el cuál está entrenado en el dataset de COCO.
-Cuenta con 2 scripts (train y test) con los cuales se puede entrenar o se pueden hacer inferencias en imágenes.
-Al momento actual, se ha entrenado con el dataset de Ternium que fue etiquetado por todo el grupo, cuenta con un costo de 0.3.
+Este modelo de [FasterRCNN](https://arxiv.org/abs/1506.01497) utiliza como backbone [resnet50](https://arxiv.org/abs/1512.03385), el cuál está entrenado en el dataset de [COCO](https://cocodataset.org/).
+Fue implementada mediante [Pytorch](https://pytorch.org/) y cuenta con 2 scripts (train y test) con los cuales se puede entrenar o se pueden hacer inferencias en imágenes.
+Al momento actual, se ha entrenado con el dataset de *Ternium* que fue etiquetado por todo el grupo, cuenta con un costo actual del *0.3*.
 También se implementó un sistema de checkpoints el cuál al final de cada epoch guarda el estado del modelo en ese momento, de esta manera
 se puede retomar el entrenamiento posteriormente.
 
@@ -9,18 +9,26 @@ se puede retomar el entrenamiento posteriormente.
 *LOS SCRIPTS DE TRAIN Y TEST DEBEN CORRERSE DESDE LA CARPETA BASE DEL PROYECTO.*
 
 Correr el siguiente comando en la terminal para instalar los requisitos.
-`pip install requirements.txt --ignore-installed`
+```
+pip install requirements.txt --ignore-installed
+```
 
 ## Setup de entorno
 Una vez que hayas instalado los requisitos procede a crear las siguientes carpetas en caso de que no las tengas.
-`/Weights/`
-`/Checkpoints/`
-`/Outputs/`
+
+```
+/Weights/
+/Checkpoints/
+/Outputs/
+```
 También necesitas tener el archivo `classes.txt` en la carpeta base del proyecto.
 
 ## Preparar dataset
 Ya que tengas tu entorno listo procede a correr el siguiente script en la terminal en caso de que no tengas tu dataset limpio y en 2 carpetas Anotations e Images.
-`python setDataset.py`
+
+```
+python setDataset.py
+```
 
 ## Entrenar FasterRCNN
 Para iniciar el entrenamiento se debe correr el siguiente script considerando la siguiente CLI:
@@ -29,7 +37,7 @@ Para iniciar el entrenamiento se debe correr el siguiente script considerando la
 Script base, a continuación se muestra la interface de comando para pasar argumentos al entrenamiento.
 
 `-e EPOCHS, --epochs EPOCHS`
-Número de epochs, DEFAULT=1`
+Número de epochs, DEFAULT=1
 
 `-bs BATCH_SIZE, --batch_size BATCH_SIZE`
 Tamaño de batch, DEFAULT=3
@@ -70,3 +78,10 @@ Ruta a la carpeta base con las imágenes de train y test, DEFAULT=cwd
 ## Comentarios adicionales
 Las inferencias se guardan en la carpeta `/Outputs/`, los pesos en `/Weights/` y los checkpoins de cada epoch
 en `/Checkpoints/`.
+
+El tamaño del batch size aproximadamente utiliza 2 GB de VRAM por cada unidad de batch ex:
+* batch_size = 2 -> 4GB VRAM
+* batch_size = 3 - > 6GB VRAM
+
+El número de workers dependerá de la cantidad de procesadores que tenga el CPU, un número recomendable es entre 4 y 6.
+Se recomienda correr en otra terminal el comando `watch -n 1 nvidia-smi` para monitorear el consumo de VRAM durante el uso del modelo.
