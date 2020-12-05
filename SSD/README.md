@@ -6,7 +6,8 @@ Corre el siguiente comando en la terminal para instalar los requisitos.
 `pip install requirements.txt --ignore-installed`
 
 ## Setup de entorno
-En los comentarios del código se detalla la estructura de los archivos y carpetas.
+Es necesario descargar los pesos de esta [carpeta](https://drive.google.com/drive/u/1/folders/1zJLJ2r9rQgH1WD315hlERMbBssqqcOpg) de manera local.
+En los comentarios del código se detalla la estructura de los archivos, las carpetas y cómo utilizar los pesos previamente descargados.
 
 ## Para entrenamiento
 1.	Eliminar la seccion donde se monta la unidad del drive (gmail) en caso de utilizar una maquina local.
