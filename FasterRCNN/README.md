@@ -21,10 +21,10 @@ Una vez que hayas instalado los requisitos procede a crear las siguientes carpet
 /Checkpoints/
 /Outputs/
 ```
-También necesitas tener el archivo `classes.txt` en la carpeta base del proyecto.
+Descarga de la [carpeta](https://drive.google.com/drive/u/1/folders/1WLNqWjLJeV6onZQCkB5k4fGdXHakS_A6) el archivo `best_weight.pth` y guárdalo en la carpeta `/Weights/`.
 
 ## Preparar dataset
-Descargar esta [carpeta](https://drive.google.com/drive/u/1/folders/1WXjElJai_S5QxWEQlW4Ui71KOQaJSURu) a la computadora de manera local y agrupa en una carpeta "Train" un porcentaje de la carpeta Images y Anotations; haz lo mismo pero con una carpeta llamada "Test" de tal manera que termines con la siguiente estructura:
+Descargar de esta [carpeta](https://drive.google.com/drive/u/1/folders/1WXjElJai_S5QxWEQlW4Ui71KOQaJSURu) las sub carpetas *Anotations* e *Images* a la computadora de manera local y agrupa en una carpeta "Train" un porcentaje de la carpeta Images y Anotations; haz lo mismo pero con una carpeta llamada "Test" de tal manera que termines con la siguiente estructura:
 
 ```
 /Test/
@@ -45,7 +45,7 @@ python setDataset.py
 ## Entrenar FasterRCNN
 Para iniciar el entrenamiento se debe correr el siguiente script considerando la siguiente CLI:
 
-` python train.py`
+`python train.py`
 Script base, a continuación se muestra la interface de comando para pasar argumentos al entrenamiento.
 
 `-e EPOCHS, --epochs EPOCHS`
