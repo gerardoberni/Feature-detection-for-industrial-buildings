@@ -24,7 +24,19 @@ Una vez que hayas instalado los requisitos procede a crear las siguientes carpet
 También necesitas tener el archivo `classes.txt` en la carpeta base del proyecto.
 
 ## Preparar dataset
-Ya que tengas tu entorno listo procede a correr el siguiente script en la terminal en caso de que no tengas tu dataset limpio y en 2 carpetas Anotations e Images.
+Descargar esta [carpeta](https://drive.google.com/drive/u/1/folders/1WXjElJai_S5QxWEQlW4Ui71KOQaJSURu) a la computadora de manera local y agrupa en una carpeta "Train" un porcentaje de la carpeta Images y Anotations; haz lo mismo pero con una carpeta llamada "Test" de tal manera que termines con la siguiente estructura:
+
+```
+/Test/
+----- /Images/
+----- /Anotations/
+
+/Train/
+----- /Images/
+----- /Anotations/
+```
+
+Ya que tengas tu entorno listo procede a correr el siguiente script en la terminal en caso de que no tengas tu dataset *limpio*.
 
 ```
 python setDataset.py
