@@ -1,13 +1,15 @@
-<<<<<<< HEAD
-# Feature detection for industrial buildings
-## Pasos para bajar una copia del repo a su compu y crear una branch local extra.
-`git pull <url del repo>`
-`git checkout -b <nombre-de-tu-branch-local>`
-En este momento ya puedes modificar lo que quieras en tu branch local que creaste, en caso de querer integrar tus cambios al repositorio haz un pull request para que alguien verifique que todo está en orden y se pueda integrar al repo global.
+# Entrega final de los modelos implementados del equipo 2.
 
+Este repositorio está dividido en 3 carpetas correspondientes a los 3 modelos implementados:
 
-Para recursos adicionales, puede visitar: 
-=======
-## Branch dev
-Aquí se va a estar haciendo un respaldo de las últimas versiones de los modelos que están en master.
->>>>>>> 5d266a45f6c12d46fc50e73fcc027b56a3a48fab
+* YOLO v4.
+* SSD.
+* Faster RCNN.
+
+Cada modelo cuenta con su respectivo README con la información necesaria para implementar nuestros modelos de manera local.
+
+### Integrantes del equipo2:
+* Eloy Hernández.
+* Gustavo Ríos.
+* Kevin Eduardo.
+* Jacobo Cruz.
